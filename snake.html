@@ -51,9 +51,9 @@
 	<p id="starHint">
 		press <span>ENTER</span> to start over
 	</p>
+
 	<script>
 		var body = document.querySelector('body');
-		var starHint = document.getElementById('starHint');
 
 		// Настройка «холста»
 		var canvas = document.getElementById("canvas");
@@ -90,13 +90,12 @@
 			ctx.fillText('Счет: ' + score, blockSize, blockSize);
 		}
 
-		// Отменяем действие setInterval и печатаем сообщение «Game Over»
+		// Отменяем действие setTimeout и печатаем сообщение «Game Over»
 		function gameOver() {
 			clearTimeout(timeoutHolder.id);
 			var newSize = 0;
 			var intervalId;
 			function gameOverAnimation() {
-				// ctx.clearRect(blockSize, blockSize * 4, width - (blockSize * 2), height - (blockSize * 5));
 				ctx.clearRect(0 + blockSize, 0 + blockSize, width - blockSize * 2, height - blockSize * 2)
 				ctx.font = newSize + 'px' + ' ' + 'Courier';
 				ctx.fillStyle = 'darkRed';
@@ -167,13 +166,13 @@
 
 		// Рисуем квадратик для каждого сегмента тела змейки
 		Snake.prototype.draw = function () {
-			for (var i = 1; i < this.segments.length; i++) {
+			this.segments[0].drawSquare('Red')
+			for (var i = 1; i < this.segments.length; i += 2) {
 				this.segments[i].drawSquare('Blue');
 			}
-			for (var j = 0; j < this.segments.length; j += 2) {
+			for (var j = 2; j < this.segments.length; j += 2) {
 				this.segments[j].drawSquare('Orange')
 			}
-			this.segments[0].drawSquare('Red')
 		}
 
 		// Создаем новую голову и добавляем ее к началу змейки,
@@ -295,7 +294,11 @@
 				snake.setDirection(newDirection);
 			}
 			if (e.keyCode === 13) {
-				window.location.reload();
+				snake = new Snake();
+				apple = new Apple();
+				score = 0
+				timeoutHolder.animationTime = 100;
+				gameLoop();
 			}
 		})
 
