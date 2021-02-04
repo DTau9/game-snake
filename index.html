@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Snake</title>
+</head>
+
+<style>
+	#starHint {
+		color: gray;
+		font: 15px Courier, sans-serif;
+		margin-left: 140px;
+	}
+
+	#starHint span {
+		color: darkred;
+	}
+
+	.controlButton {
+		letter-spacing: 30px;
+		margin-left: 140px;
+	}
+
+	.controlButton * {
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-position: center;
+		display: inline-block;
+		height: 100px;
+	}
+
+	.arrow {
+		background-image: url(https://temcocontrols.com/ftp/OnlineHelp/T3Controllers/images/drex_module_4_4_custom.png);
+		width: 100px;
+	}
+
+	.enter {
+		background-image: url(https://i1.wp.com/neumeka.ru/images/uchebnik/internet/social/vkontakte/open/2_1.png);
+		width: 100px;
+	}
+</style>
+
+<body>
+	<canvas id="canvas" width="500" height="500"></canvas>
+	<div class="controlButton">
+		<div class="arrow"></div>
+		<div class="enter"></div>
+	</div>
+	<p id="starHint">
+		press <span>ENTER</span> to start over
+	</p>
+
+	<script src="snake.js"></script>
+</body>
+
+</html>
