@@ -13,6 +13,8 @@ const widthInBlocks = width / blockSize;
 const heightInBlocks = height / blockSize;
 // Устанавливаем начальный счет
 let score = 0;
+// проверка столкновения для рестарта игры
+let isCollision = false;
 // устанавливаем время обновления анимации
 const timeoutHolder = {
 	animationTime: 100
@@ -141,6 +143,7 @@ Snake.prototype.move = function () {
 
 	if (this.checkCollision(newHead)) {
 		gameOver();
+		isCollision = true;
 		return;
 	}
 
@@ -227,19 +230,22 @@ gameLoop();
 
 // Преобразуем коды клавиш в направления
 const directions = {
-	37: "left",
-	38: "up",
-	39: "right",
-	40: "down"
+	ArrowLeft: "left",
+	ArrowUp: "up",
+	ArrowRight: "right",
+	ArrowDown: "down"
 }
 
 // Задаем обработчик события keydown (клавиши-стрелки)
 body.addEventListener('keydown', function (e) {
-	let newDirection = directions[e.keyCode];
+	e.preventDefault();
+	let newDirection = directions[e.code];
 	if (newDirection !== undefined) {
 		snake.setDirection(newDirection);
 	}
-	if (e.keyCode === 13) {
+
+	if (e.code === 'Enter' && isCollision) {
+		isCollision = false;
 		snake = new Snake();
 		apple = new Apple();
 		score = 0
